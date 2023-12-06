@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  app:
+    image: todo-app
+    build:
+      context: .
+    command: 
+      [
+        "uvicorn", 
+        "src.main:app", 
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--reload"
+      ]
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    links:
+      - database
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=toor
+
+networks:
+  default:
+    name: todo-app
+
+volumes:
+  db_data:
