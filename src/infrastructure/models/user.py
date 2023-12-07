@@ -6,7 +6,11 @@ from src.domain.entities import User
 class UserModel(Base):
     __tablename__ = "users"
 
-    id: str = sa.Column(sa.UUID, primary_key=True)  # type: ignore
+    id: int = sa.Column(
+        sa.Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
     name: str = sa.Column(sa.String)
     email: str = sa.Column(sa.String)
 

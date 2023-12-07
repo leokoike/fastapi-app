@@ -6,8 +6,12 @@ from src.domain.entities import Project
 class ProjectModel(Base):
     __tablename__ = "projects"
 
-    id: str = sa.Column(sa.UUID, primary_key=True)  # type: ignore
-    user_id: str = sa.Column(sa.ForeignKey("users.id"))
+    id: int = sa.Column(
+        sa.Integer,
+        primary_key=True,
+        autoincrement=True,
+    )
+    user_id: int = sa.Column(sa.ForeignKey("users.id"))
     name: str = sa.Column(sa.String)
 
     def toEntity(self) -> Project:

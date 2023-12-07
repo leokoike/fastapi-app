@@ -1,8 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from src.domain.dtos.user.user_data import UserData
 from src.domain.entities import User
 from src.domain.repositories import UserRepository
 from src.infrastructure.models import UserModel
+from src.infrastructure.database import transaction_control
 
 
 class PgUserRepository(UserRepository):
@@ -17,10 +19,12 @@ class PgUserRepository(UserRepository):
 
         return None
 
-    async def save(self, user: User) -> None:
+    async def save(self, user: UserData) -> User:
         user_data = UserModel(**user.model_dump())
         try:
-            await self.session.merge(user_data)
+            async with transaction_control(session=self.session):
+                res = await self.session.merge(user_data)
+            return res.toEntity()
         except Exception as e:
             raise e
 
