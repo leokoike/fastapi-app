@@ -176,4 +176,7 @@ pyrightconfig.json
 # vscode files
 .vscode
 
+# script for key_gen
+key_gen.py
+
 # End of https://www.toptal.com/developers/gitignore/api/python

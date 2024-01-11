@@ -9,12 +9,14 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "*"
 uvicorn = "*"
-pydantic = "*"
+pydantic = {version = "*", extras = ["email"]}
 SQLAlchemy = {version = "*", extras = ["asyncio", "mypy"]}
 pydantic-settings = "*"
 alembic = "*"
 orjson = "*"
 asyncpg = "*"
+cryptography = "*"
+pyjwt = "*"
 
 
 [tool.poetry.group.dev.dependencies]

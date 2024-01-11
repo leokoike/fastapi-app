@@ -1,10 +1,8 @@
-from typing import AsyncIterator
-from contextlib import asynccontextmanager
+from asyncio import current_task
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
-    AsyncSession,
+    async_scoped_session,
     async_sessionmaker,
-    AsyncSessionTransaction,
 )
 from sqlalchemy.orm import declarative_base, registry
 from sqlalchemy.pool import NullPool
@@ -25,25 +23,9 @@ sessionmaker = async_sessionmaker(
 )
 
 
+AsyncScopedSession = async_scoped_session(
+    sessionmaker,
+    scopefunc=current_task,
+)
+
 Base: registry = declarative_base()
-
-
-# def get_session() -> AsyncSession:
-#     from asyncio import current_task
-
-#     AsyncScopedSession = async_scoped_session(
-#         sessionmaker,
-#         scopefunc=current_task,
-#     )
-#     async_session: AsyncSession = AsyncScopedSession()
-#     return async_session
-
-
-@asynccontextmanager
-async def transaction_control(session: AsyncSession) -> AsyncIterator[AsyncSessionTransaction]:
-    if session.in_transaction():
-        async with session.get_transaction() as transaction:  # type: ignore
-            yield transaction
-    else:
-        async with session.begin() as transaction:
-            yield transaction

@@ -11,12 +11,14 @@ class UserModel(Base):
         primary_key=True,
         autoincrement=True,
     )
-    name: str = sa.Column(sa.String)
+    username: str = sa.Column(sa.String)
     email: str = sa.Column(sa.String)
+    password: str = sa.Column(sa.String)
 
     def toEntity(self) -> User:
         return User(
             id=self.id,
-            name=self.name,
+            username=self.username,
             email=self.email,
+            password=self.password,
         )
