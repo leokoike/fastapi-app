@@ -9,11 +9,75 @@ readme = "README.md"
 python = "^3.12"
 fastapi = "*"
 pydantic = "*"
-SQLAlchemy = "*"
-asyncpg = "*"
 uvicorn = "*"
 cryptography = "*"
+motor = "*"
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+mypy = "*"
+flake8 = "*"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+[tool.flake8]
+exclude = [".git", "__pycache__", "build", "dist"]
+max-line-length = 120
+max-complexity = 10
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+check_untyped_defs = true
+strict_equality = true
+warn_redundant_casts = true
+warn_unused_ignores = true
 
 [build-system]
 requires = ["poetry-core"]

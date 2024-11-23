@@ -5,7 +5,7 @@ from domain.entities import User
 class UserRepository:
 
     @abstractmethod
-    async def find_by(self, id: str = None, username: str = None) -> User:
+    async def find_by(self, **kwargs) -> User:
         raise NotImplementedError()
 
     @abstractmethod

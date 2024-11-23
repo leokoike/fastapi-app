@@ -11,9 +11,8 @@ class CreateUserUseCase:
 
     async def execute(self, new_user_data: CreateUser) -> None:
         user: User = await self.user_repository.find_by(
-            username=new_user_data.username.lower().strip()
+            username=new_user_data.username.lower().strip(),
         )
-
         if user:
             raise BusinessException(message="username already exists")
         now = datetime.now(UTC)
