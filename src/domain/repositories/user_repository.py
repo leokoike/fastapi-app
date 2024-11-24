@@ -4,7 +4,7 @@ from src.domain.entities import User
 
 class UserRepository:
     @abstractmethod
-    async def find_by(self, **kwargs) -> User:
+    async def find_by(self, **kwargs) -> User | None:
         raise NotImplementedError()
 
     @abstractmethod

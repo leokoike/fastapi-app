@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Depends
-from src.infra.container import get_conn
+from src.infra.apis.routes.user_routes import user_router
+from src.infra.container import get_db_conn
 from src.infra.databases.mongo.connection import MongoConnection
 from src.infra.databases.mongo.session import MongoSession
 
@@ -35,5 +36,8 @@ async def http_session_db(request: Request, call_next):
 
 
 @app.get("/")
-async def health(db: MongoConnection = Depends(get_conn)):
+async def health(db: MongoConnection = Depends(get_db_conn)):
     return {"api": "ok", "db": await db.is_db_connected()}
+
+
+app.include_router(user_router)

@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     reload: bool = False
 
     # MongoDB
-    database_uri: str = "mongodb://admin:admin@localhost:27017"
+    database_uri: str = "mongodb://root:toor@localhost:27017"
     database_name: str = "fakeTwitter"
     users_collection: str = "users"
     tweets_collection: str = "tweets"

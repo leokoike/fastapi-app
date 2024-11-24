@@ -1,7 +1,7 @@
-fakeTwitter = db.getSiblingDB('fakeTwitter')
-
-fakeTwitter.createUser({
-    user: 'admin',
-    pwd: 'admin',
+db.createUser({
+    user: 'root',
+    pwd: 'toor',
     roles: [{ role: 'readWrite', db: 'fakeTwitter' }]
 });
+
+db = db.getSiblingDB('fakeTwitter')
