@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Depends
 from src.infra.apis.routes.user_routes import user_router
+from src.infra.apis.routes.tweet_routes import tweet_router
 from src.infra.container import get_db_conn
 from src.infra.databases.mongo.connection import MongoConnection
 from src.infra.databases.mongo.session import MongoSession
@@ -40,4 +41,5 @@ async def health(db: MongoConnection = Depends(get_db_conn)):
     return {"api": "ok", "db": await db.is_db_connected()}
 
 
-app.include_router(user_router)
+app.include_router(user_router, tags=["Users"])
+app.include_router(tweet_router, tags=["Tweets"])

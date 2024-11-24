@@ -8,7 +8,7 @@ class TweetRepository:
         raise NotImplementedError()
 
     @abstractmethod
-    async def find_by(self, **kwargs) -> Tweet:
+    async def find_by(self, **kwargs) -> Tweet | None:
         raise NotImplementedError()
 
     @abstractmethod

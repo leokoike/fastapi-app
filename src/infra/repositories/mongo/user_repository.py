@@ -1,3 +1,4 @@
+from bson import ObjectId
 from typing import Any
 from motor.motor_asyncio import AsyncIOMotorCollection, AsyncIOMotorClientSession
 from src.domain.entities.user import User
@@ -10,12 +11,23 @@ class MongoUserRepository(UserRepository):
         self.session = session
 
     async def find_by(self, **kwargs) -> User | None:
-        user_data: dict[str, Any] | None = await self.collection.find_one(kwargs, session=self.session)
+        filters = {}
+
+        if kwargs.get("id"):
+            filters["_id"] = ObjectId(kwargs.pop("id"))
+
+        filters |= kwargs
+
+        user_data: dict[str, Any] | None = await self.collection.find_one(
+            filters,
+            session=self.session,
+        )
 
         if user_data:
+            user_data["id"] = str(user_data["_id"])
             return User(**user_data)
 
     async def create(self, user: User) -> None:
-        user_model = user.model_dump(exclude=["_id"])
+        user_model = user.model_dump(exclude_none=True)
 
         await self.collection.insert_one(user_model, session=self.session)

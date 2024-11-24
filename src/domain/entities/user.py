@@ -1,9 +1,8 @@
 from src.domain.entities.base import AuditData
-from bson import ObjectId
 
 
 class User(AuditData):
-    _id: str | ObjectId | None = None
+    id: str | None = None
     username: str
     fullname: str
     email: str

@@ -10,7 +10,7 @@ class CreateUserUseCase:
         self.user_repository = user_repository
 
     async def execute(self, new_user_data: CreateUser) -> None:
-        user: User = await self.user_repository.find_by(
+        user: User | None = await self.user_repository.find_by(
             username=new_user_data.username.lower().strip(),
         )
         if user:
