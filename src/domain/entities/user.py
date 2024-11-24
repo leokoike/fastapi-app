@@ -1,4 +1,4 @@
-from domain.entities.base import AuditData
+from src.domain.entities.base import AuditData
 
 
 class User(AuditData):

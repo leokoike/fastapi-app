@@ -12,6 +12,7 @@ pydantic = "*"
 uvicorn = "*"
 cryptography = "*"
 motor = "*"
+pydantic-settings = "*"
 
 
 [tool.poetry.group.dev.dependencies]

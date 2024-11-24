@@ -1,8 +1,8 @@
 from datetime import datetime, UTC
-from domain.dtos import CreateUser
-from domain.entities import User
-from domain.repositories import UserRepository
-from domain.utils.errors import BusinessException
+from src.domain.dtos import CreateUser
+from src.domain.entities import User
+from src.domain.repositories import UserRepository
+from src.domain.utils.errors import BusinessException
 
 
 class CreateUserUseCase:

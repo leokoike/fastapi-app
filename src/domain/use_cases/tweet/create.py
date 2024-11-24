@@ -1,4 +1,4 @@
-from domain.repositories import TweetRepository
+from src.domain.repositories import TweetRepository
 
 
 class CreateTweetUseCase:

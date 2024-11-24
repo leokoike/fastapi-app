@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from domain.entities import Tweet
+from src.domain.entities import Tweet
 
 
 class TweetRepository:
