@@ -2,10 +2,20 @@ from fastapi import Request, Depends
 from motor.motor_asyncio import AsyncIOMotorClientSession, AsyncIOMotorCollection
 
 from src.domain.repositories import UserRepository, TweetRepository
-from src.domain.use_cases import CreateUserUseCase, FindUserUseCase, CreateTweetUseCase
+from src.domain.use_cases import CreateUserUseCase, FindUserUseCase, CreateTweetUseCase, FindTweetUseCase
 from src.infra.config import settings
 from src.infra.databases.mongo.connection import MongoConnection
 from src.infra.repositories import MongoUserRepository, MongoTweetRepository
+
+
+__all__ = [
+    "get_db_conn",
+    "get_db_session",
+    "get_create_tweet_use_case",
+    "get_create_user_use_case",
+    "get_find_tweet_use_case",
+    "get_find_user_use_case",
+]
 
 
 async def get_db_conn(request: Request) -> MongoConnection:
@@ -47,6 +57,16 @@ async def get_create_tweet_use_case(
     tweet_repository: TweetRepository = Depends(get_tweet_repository),
 ) -> CreateTweetUseCase:
     return CreateTweetUseCase(
+        user_repository=user_repository,
+        tweet_repository=tweet_repository,
+    )
+
+
+async def get_find_tweet_use_case(
+    user_repository: UserRepository = Depends(get_user_repository),
+    tweet_repository: TweetRepository = Depends(get_tweet_repository),
+) -> FindTweetUseCase:
+    return FindTweetUseCase(
         user_repository=user_repository,
         tweet_repository=tweet_repository,
     )

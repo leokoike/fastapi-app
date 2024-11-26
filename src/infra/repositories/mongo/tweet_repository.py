@@ -11,7 +11,24 @@ class MongoTweetRepository(TweetRepository):
         self.session = session
 
     async def list_by(self, **kwargs) -> list[Tweet]:
-        raise NotImplementedError()
+        filters = {}
+
+        if kwargs.get("user_id"):
+            filters["user_id"] = ObjectId(kwargs.pop("user_id"))
+
+        cursor = self.collection.find(
+            filters,
+            session=self.session,
+        )
+
+        return [
+            Tweet(
+                id=str(tweet_data.pop("_id")),
+                user_id=str(tweet_data.pop("user_id")),
+                **tweet_data,
+            )
+            async for tweet_data in cursor
+        ]
 
     async def find_by(self, **kwargs) -> Tweet | None:
         filters = {}
@@ -31,5 +48,6 @@ class MongoTweetRepository(TweetRepository):
 
     async def create(self, tweet: Tweet) -> None:
         tweet_model = tweet.model_dump(exclude_none=True)
+        tweet_model["user_id"] = ObjectId(tweet_model["user_id"])
 
         await self.collection.insert_one(tweet_model, session=self.session)
