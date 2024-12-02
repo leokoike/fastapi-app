@@ -13,6 +13,8 @@ uvicorn = "*"
 cryptography = "*"
 motor = "*"
 pydantic-settings = "*"
+pyjwt = "*"
+bcrypt = "*"
 
 
 [tool.poetry.group.dev.dependencies]
