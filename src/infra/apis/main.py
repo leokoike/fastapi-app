@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, Depends
+from src.infra.apis.routes.token_routes import token_router
 from src.infra.apis.routes.user_routes import user_router
 from src.infra.apis.routes.tweet_routes import tweet_router
 from src.infra.container import get_db_conn
@@ -41,5 +42,6 @@ async def health(db: MongoConnection = Depends(get_db_conn)):
     return {"api": "ok", "db": await db.is_db_connected()}
 
 
-app.include_router(user_router, tags=["Users"])
+app.include_router(token_router, tags=["Token"])
 app.include_router(tweet_router, tags=["Tweets"])
+app.include_router(user_router, tags=["Users"])

@@ -1,7 +1,8 @@
-from .user import User
+from .user import User, UserData
 from .tweet import Tweet
 
 __all__ = [
     "User",
-    "Tweet"
+    "UserData",
+    "Tweet",
 ]

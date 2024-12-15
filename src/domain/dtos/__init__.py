@@ -1,3 +1,5 @@
+from .auth.authenticate import Authenticate
+from .token.token import Token
 from .tweet.create_tweet import CreateTweet
 from .tweet.find_tweet import FindTweet
 from .user.create_user import CreateUser
@@ -5,8 +7,10 @@ from .user.find_user import FindUser
 
 
 __all__ = [
+    "Authenticate",
     "CreateTweet",
-    "FindTweet",
     "CreateUser",
+    "FindTweet",
     "FindUser",
+    "Token",
 ]

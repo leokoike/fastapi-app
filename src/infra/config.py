@@ -22,5 +22,10 @@ class Settings(BaseSettings):
     users_collection: str = "users"
     tweets_collection: str = "tweets"
 
+    # JWT
+    secret_key: str = "super-secret"
+    expire_token: int = 30
+    algorithm_encode: str = "HS256"
+
 
 settings = Settings()
