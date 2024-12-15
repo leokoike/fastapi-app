@@ -10,7 +10,7 @@ class DecodeTokenUseCase:
         pass
 
     async def execute(self, token: str) -> dict:
-        data: dict = jwt.decode(jwt=token, key=settings.secret_key, algorithms=[settings.algorithm_encode])
+        data: dict = jwt.decode(jwt=token, key=settings.secret_key, algorithms=[settings.token_algorithm])
 
         date_exp = datetime.fromtimestamp(data["exp"], tz=UTC)
         if date_exp < datetime.now(UTC):

@@ -16,5 +16,5 @@ class CreateTokenUseCase:
         return jwt.encode(
             data_to_encrypt,
             settings.secret_key,
-            algorithm=settings.algorithm_encode,
+            algorithm=settings.token_algorithm,
         )
