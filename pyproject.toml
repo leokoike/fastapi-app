@@ -11,10 +11,11 @@ fastapi = "*"
 pydantic = "*"
 uvicorn = "*"
 cryptography = "*"
-motor = "*"
 pydantic-settings = "*"
 pyjwt = "*"
 bcrypt = "*"
+pymongo = "*"
+python-multipart = "*"
 
 
 [tool.poetry.group.dev.dependencies]

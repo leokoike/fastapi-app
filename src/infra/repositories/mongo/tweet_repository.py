@@ -1,12 +1,13 @@
 from bson import ObjectId
 from typing import Any
-from motor.motor_asyncio import AsyncIOMotorCollection, AsyncIOMotorClientSession
+from pymongo.asynchronous.client_session import AsyncClientSession
+from pymongo.asynchronous.collection import AsyncCollection
 from src.domain.entities import Tweet
 from src.domain.repositories import TweetRepository
 
 
 class MongoTweetRepository(TweetRepository):
-    def __init__(self, session: AsyncIOMotorClientSession, collection: AsyncIOMotorCollection) -> None:
+    def __init__(self, session: AsyncClientSession, collection: AsyncCollection) -> None:
         self.collection = collection
         self.session = session
 

@@ -1,13 +1,13 @@
-from motor.motor_asyncio import AsyncIOMotorClientSession
+from pymongo.asynchronous.client_session import AsyncClientSession
 from src.infra.databases.mongo.connection import MongoConnection
 
 
 class MongoSession:
     def __init__(self) -> None:
-        self.session = None
+        self.session: AsyncClientSession = None
 
-    async def __aenter__(self) -> AsyncIOMotorClientSession:
-        self.session = await MongoConnection.client.start_session()
+    async def __aenter__(self) -> AsyncClientSession:
+        self.session = MongoConnection.client.start_session()
         return self.session
 
     async def __aexit__(self, exc_type, exc_val, traceback) -> None:
